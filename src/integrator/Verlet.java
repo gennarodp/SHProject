@@ -6,10 +6,14 @@ import entities.Entity;
 import simulator.Simulation;
 import vector.Vector;
 
-public class VerletStep {
+public class Verlet extends Integrator {
 
 
-	public static void step(Simulation sim, double dt){
+	public Verlet(Simulation sim, double dt) {
+		super(sim, dt);
+	}
+
+	public  void step(){
 		
 		
 		ArrayList<Entity> entityList=sim.getEntityList();

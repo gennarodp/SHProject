@@ -8,7 +8,7 @@ public class Launcher {
 		Simulation sim = new Simulation();
 				
 		double sf = 149597871.0;
-		sim.setStep(1.0/365.242);
+		sim.setStep(1.0/3650.242);
 		
 		Entity e1 = new Entity(132712440018.0*3.15569e7*3.15569e7, "sun");
 		e1.setVelocity(new Vector(1.816512817381262E-06 , 6.441888830012236E-06 ,-5.249011175312896E-08));

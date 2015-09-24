@@ -6,12 +6,17 @@ import entities.Entity;
 import simulator.Simulation;
 import vector.Vector;
 
-public class BetterIntegrator {
+public class Order4Symplectic extends Integrator{
 
-	private static final double[] c=new double[]{0.67560359597983,-0.17560359597983,-0.17560359597983,0.67560359597983};
 	private static final double[] d=new double[]{1.35120719195966,-1.70241438391932,1.35120719195966,0};
-	public static void step(Simulation sim, double dt){
+	private static final double[] c=new double[]{0.67560359597983,-0.17560359597983,-0.17560359597983,0.67560359597983};
 
+	public Order4Symplectic(Simulation sim, double dt) {
+		super(sim, dt);
+	}
+	
+	
+	public  void step(){
 		for (int i = 0; i < c.length; i++) {
 			ArrayList<Entity> entityList=sim.getEntityList();
 			for(Entity e:entityList){
@@ -26,7 +31,6 @@ public class BetterIntegrator {
 				newV.mult(dt*d[i]);
 				x.add(newV);
 			}
-
 			for(Entity e:entityList){
 				e.setAcceleration(sim.calcAccel(e));
 			}
