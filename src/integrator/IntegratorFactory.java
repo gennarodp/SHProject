@@ -12,6 +12,8 @@ public class IntegratorFactory {
 			return new Verlet(sim, dt);
 		}else if (type.equalsIgnoreCase("SYMPLECTIC4")){
 			return new Order4Symplectic(sim, dt);
+		}else if (type.equalsIgnoreCase("RK4")){
+			return new RK4(sim,dt);
 		}
 		return null;
 	}

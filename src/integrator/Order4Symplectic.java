@@ -17,22 +17,20 @@ public class Order4Symplectic extends Integrator{
 	
 	
 	public  void step(){
-		for (int i = 0; i < c.length; i++) {
-			ArrayList<Entity> entityList=sim.getEntityList();
-			for(Entity e:entityList){
-				Vector newV = new Vector();
-				Vector x = e.getPosition();
-				Vector v = e.getVelocity();
-				Vector a = e.getAcceleration();
+		ArrayList<Entity> entityList=sim.getEntityList();
 
-				a.mult(c[i]*dt);
-				v.add(a);
-				newV = v.copy();
-				newV.mult(dt*d[i]);
-				x.add(newV);
+		for (int i = 0; i < c.length; i++) {
+			for(Entity e:entityList){		
+				
+				Vector a = e.getAcceleration().mult(c[i]*dt);
+
+				Vector v=e.getVelocity().add(a);
+				e.setVelocity(v);
+
+				e.setPosition(e.getPosition().add(v.mult(dt*d[i])));
 			}
 			for(Entity e:entityList){
-				e.setAcceleration(sim.calcAccel(e));
+				e.setAcceleration(e.calcAccel(sim));
 			}
 		}
 	}

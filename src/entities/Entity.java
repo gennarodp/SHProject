@@ -12,7 +12,6 @@ public class Entity {
 	private double mu;
 	private Vector position, velocity, acceleration;
 	public String name;
-	private Simulation simulation;
 	private double sf = 0.0000002;
 	
 
@@ -59,6 +58,20 @@ public class Entity {
 
 	public double getMu() {
 		return mu;
+	}
+
+	public Vector calcAccel(Simulation simulation){
+		Vector a = new Vector();
+		for(Entity entity:simulation.getEntityList()){
+			if(!name.equalsIgnoreCase(entity.name)){
+				Vector diff = getPosition().sub(entity.getPosition());
+				double mag = diff.mag();
+				diff.normalise();
+				diff = diff.mult(-entity.getMu()/(mag*mag));
+				a = a.add(diff);
+			}
+		}
+		return a;
 	}
 
 }

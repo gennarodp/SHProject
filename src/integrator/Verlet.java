@@ -17,28 +17,16 @@ public class Verlet extends Integrator {
 		
 		
 		ArrayList<Entity> entityList=sim.getEntityList();
-		for(Entity e:entityList){
-			Vector newX = new Vector();
-			Vector x = e.getPosition().copy();
-			Vector v = e.getVelocity().copy();
-			Vector a = e.getAcceleration().copy();
-
-			//get new X
-			newX.add(x);
-			v.mult(dt);
-			newX.add(v);
-			a.mult(dt*dt*0.5);
-			newX.add(a);
-			e.setPosition(newX);
+		for(Entity e:entityList){	
+			Vector temp = e.getPosition();
+			temp = temp.add(e.getVelocity().mult(dt));
+			temp = temp.add(e.getAcceleration().mult(dt*dt*0.5));
+			e.setPosition(temp);
 		}
 
 		for(Entity e:entityList){
-			Vector temp = e.getAcceleration().copy();
-			Vector newA = sim.calcAccel(e);
-			temp.add(newA);
-			temp.mult(dt*0.5);
-			temp.add(e.getVelocity());
-			e.setVelocity(temp);
+			Vector newA = e.calcAccel(sim);
+			e.setVelocity(e.getVelocity().add((e.getAcceleration().add(newA)).mult(0.5*dt)));
 			e.setAcceleration(newA);
 		}
 	}

@@ -10,6 +10,12 @@ public class Vector {
 		this.z=0;
 	}
 	
+	public Vector(double x, double y, double z){
+		this.x=x;
+		this.y=y;
+		this.z=z;
+	}
+	
 	public double getX() {
 		return x;
 	}
@@ -34,28 +40,16 @@ public class Vector {
 		this.z = z;
 	}
 
-	public Vector(double x, double y, double z){
-		this.x=x;
-		this.y=y;
-		this.z=z;
-	}
-
-	public void add(Vector addThis) {
-		this.x +=addThis.getX();
-		this.y +=addThis.getY();		
-		this.z +=addThis.getZ();
+	public Vector add(Vector addThis) {
+		return new Vector(x+addThis.x,y+addThis.y,z+addThis.z);
 	}
 	
-	public void sub(Vector subThis) {
-		this.x -=subThis.getX();
-		this.y -=subThis.getY();		
-		this.z -=subThis.getZ();
+	public Vector sub(Vector subThis) {
+		return new Vector(x-subThis.x,y-subThis.y,z-subThis.z);
 	}
 	
-	public void mult(double multThis) {
-		this.x *=multThis;
-		this.y *=multThis;		
-		this.z *=multThis;
+	public Vector mult(double multThis) {
+		return new Vector(x*multThis,y*multThis,z*multThis);
 	}
 	
 	public Vector copy(){
